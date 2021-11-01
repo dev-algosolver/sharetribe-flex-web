@@ -19,9 +19,12 @@ const FAQPage = () => {
                     <TopbarContainer />
                 </LayoutWrapperTopbar>
 
-                <LayoutWrapperMain  className={css.mainWrapper}>
+                <LayoutWrapperMain className={css.mainWrapper}>
+                    <h1>Frequently Asked Questions</h1>
+
                     <div>
-                        Hello FAQ
+                        <h3>Question 1?</h3>
+                        <p>Answer: Lorem ipsum</p>
                     </div>
                 </LayoutWrapperMain>
 
