@@ -42,7 +42,7 @@ const FavoriteListingsPage = () => {
         })
         return data
     }
-    abc().then(data => console.log(data))
+
 
 
     const trimLongText = (text, length = 0) => {
