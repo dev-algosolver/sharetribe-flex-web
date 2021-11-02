@@ -1,22 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { FormattedMessage, intlShape } from '../../util/reactIntl';
 import classNames from 'classnames';
-import { ACCOUNT_SETTINGS_PAGES } from '../../routeConfiguration';
-import { propTypes } from '../../util/types';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { AiFillHeart } from 'react-icons/ai';
 import {
   Avatar,
   InlineTextButton,
   Logo,
-  Menu,
-  MenuLabel,
-  MenuContent,
-  MenuItem,
-  NamedLink,
+  Menu, MenuContent,
+  MenuItem, MenuLabel, NamedLink
 } from '../../components';
 import { TopbarSearchForm } from '../../forms';
-
+import { ACCOUNT_SETTINGS_PAGES } from '../../routeConfiguration';
+import { FormattedMessage, intlShape } from '../../util/reactIntl';
+import { propTypes } from '../../util/types';
 import css from './TopbarDesktop.module.css';
+
 
 const TopbarDesktop = props => {
   const {
@@ -132,6 +130,12 @@ const TopbarDesktop = props => {
     </NamedLink>
   );
 
+  const favoriteListingsLink = isAuthenticatedOrJustHydrated && (
+    <NamedLink name="FavoriteListingsPage" className={css.favoriteLink}>
+        <AiFillHeart />
+    </NamedLink>
+  );
+
   return (
     <nav className={classes}>
       <NamedLink className={css.logoLink} name="LandingPage">
@@ -148,6 +152,7 @@ const TopbarDesktop = props => {
         </span>
       </NamedLink>
       {inboxLink}
+      {favoriteListingsLink}
       {profileMenu}
       {signupLink}
       {loginLink}

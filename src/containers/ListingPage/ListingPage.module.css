@@ -1,5 +1,5 @@
-@import '../../styles/customMediaQueries.css';
-@import '../../styles/propertySets.css';
+@import "../../styles/customMediaQueries.css";
+@import "../../styles/propertySets.css";
 
 .root {
 }
@@ -332,10 +332,13 @@
 .heading {
   margin-bottom: 33px;
   padding: 0 24px;
+  width: 100%;
 
   @media (--viewportMedium) {
     margin-bottom: 0;
     padding: 0;
+    display: flex;
+    justify-content: space-between;
   }
 }
 
@@ -370,7 +373,18 @@
 .authorNameLink {
   color: var(--matterColor);
 }
-
+.addToFavorite {
+  width: 40px;
+  text-align: center;
+}
+.addToFavorite svg {
+  font-size: 30px;
+  fill: #ccc0c0;
+  cursor: pointer;
+}
+.active svg {
+  fill: #eb2d2d;
+}
 .contactWrapper {
   display: none;
 
