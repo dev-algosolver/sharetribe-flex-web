@@ -14,6 +14,8 @@ const sdk = sharetribeSdk.createInstance({
     clientId: "097107b8-7d47-4e26-8b18-88cd9599357e",
     baseUrl: 'https://flex-api.sharetribe.com',
 });
+const sdkUtil = sharetribeSdk.util;
+
 
 const SingleListing = ({ favoriteListingId, setFavoriteListingIDs, allFavoriteItems }) => {
     const [loading, setLoading] = useState(true)
@@ -26,9 +28,12 @@ const SingleListing = ({ favoriteListingId, setFavoriteListingIDs, allFavoriteIt
     const currentUserId = state?.user?.currentUser?.id?.uuid;
 
     useEffect(() => {
-        sdk.listings.show({ id: favoriteListingId })
+        sdk.listings.show({
+            id: favoriteListingId,
+            include: ["images"],
+        })
             .then(data => {
-                setListingData(data?.data?.data)
+                setListingData(data?.data)
                 setLoading(false)
             })
     }, [favoriteListingId])
@@ -46,7 +51,7 @@ const SingleListing = ({ favoriteListingId, setFavoriteListingIDs, allFavoriteIt
     // For delete from favorite
     const deleteFromFavorite = () => {
         if (allFavoriteItems?.[currentUserId]?.length) {
-            const favoriteItems = allFavoriteItems?.[currentUserId]?.filter(item => item !== favoriteListingId?.uuid);
+            const favoriteItems = allFavoriteItems?.[currentUserId]?.filter(item => item !== favoriteListingId);
 
             // set in state
             setFavoriteListingIDs(favoriteItems)
@@ -68,8 +73,8 @@ const SingleListing = ({ favoriteListingId, setFavoriteListingIDs, allFavoriteIt
                         </div>
                         : <div className={css.cardBody}>
                             <div className={css.cardHeaderImg}>
-                                <Link to={`/l/${listingData?.attributes?.title}/${listingData?.id?.uuid}`}>
-                                    <img src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" />
+                                <Link to={`/l/${listingData?.data?.attributes?.title}/${listingData?.data?.id?.uuid}`}>
+                                    <img src={listingData?.included?.[0]?.attributes?.variants?.default?.url} alt="" />
                                 </Link>
                             </div>
                             <div
@@ -78,10 +83,10 @@ const SingleListing = ({ favoriteListingId, setFavoriteListingIDs, allFavoriteIt
                                 <AiFillHeart />
                             </div>
                             <div className={css.cardInfo}>
-                                <h2 className={css.cardPrice}>$ {listingData?.attributes?.price?.amount}</h2>
-                                <Link to={`/l/${listingData?.attributes?.title}/${listingData?.id?.uuid}`}>
-                                    <p className={css.cardTitle}>{trimLongText(listingData?.attributes?.title, 30)} </p>
-                                    <p className={css.cardLocation}>{listingData?.attributes?.publicData?.location?.address}</p>
+                                <h2 className={css.cardPrice}>$ {(listingData?.data?.attributes?.price?.amount) / 100}</h2>
+                                <Link to={`/l/${listingData?.data?.attributes?.title}/${listingData?.data?.id?.uuid}`}>
+                                    <p className={css.cardTitle}>{trimLongText(listingData?.data?.attributes?.title, 30)} </p>
+                                    <p className={css.cardLocation}>{listingData?.data?.attributes?.publicData?.location?.address}</p>
                                 </Link>
                             </div>
                         </div>

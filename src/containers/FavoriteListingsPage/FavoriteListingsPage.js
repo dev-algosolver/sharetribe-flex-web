@@ -20,21 +20,11 @@ const FavoriteListingsPage = () => {
 
     // updating favorite listings ids
     useEffect(() => {
-        setFavoriteListingIDs(getLSItem("favoriteItems")?.[currentUserId]?.map(id => new UUID(id)))
+        setFavoriteListingIDs(getLSItem("favoriteItems")?.[currentUserId]?.filter(id => new UUID(id)))
     }, [currentUserId])
 
     // updating favorite items
     useEffect(() => { setAllFavoriteItems(getLSItem("favoriteItems")) }, [currentUserId,favoriteListingIDs])
-
-    // const abc = async (id) => {
-    //     const data = await sdk.listings.show({ id })
-    //     return data
-    // }
-    // const def = abc("617f6c78-e2b7-45a0-a264-02ee43b4372f");
-    // def.then(data => console.log(data))
-    // const def = favoriteListingIDs?.map(id => abc(id))
-    // console.log(def);
-
 
     return (
         <Page
@@ -54,7 +44,7 @@ const FavoriteListingsPage = () => {
                     <div className={css.cardContainer}>
                         {
                             favoriteListingIDs?.map(favoriteListingId => <SingleListing
-                                key={favoriteListingId?.uuid}
+                                key={favoriteListingId}
                                 setFavoriteListingIDs={setFavoriteListingIDs}
                                 favoriteListingId={favoriteListingId}
                                 allFavoriteItems={allFavoriteItems} />)
