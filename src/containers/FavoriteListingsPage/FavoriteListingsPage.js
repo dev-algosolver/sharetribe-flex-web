@@ -1,23 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { AiFillHeart } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import { Footer, LayoutSingleColumn, LayoutWrapperFooter, LayoutWrapperMain, LayoutWrapperTopbar, Page } from '../../components';
 import { TopbarContainer } from '../../containers';
 import { getLSItem } from '../../services/localstorageService';
 import { types as sdkTypes } from '../../util/sdkLoader';
 import css from './FavoriteListingPage.module.css';
-const sharetribeSdk = require('sharetribe-flex-sdk');
+import SingleListing from './SingleListing';
 const { UUID } = sdkTypes;
-
-// sdk 
-const sdk = sharetribeSdk.createInstance({
-    clientId: "097107b8-7d47-4e26-8b18-88cd9599357e",
-    baseUrl: 'https://flex-api.sharetribe.com',
-});
 
 const FavoriteListingsPage = () => {
     const [favoriteListingIDs, setFavoriteListingIDs] = useState([]);
-    const [favoriteListings, setFavoriteListings] = useState([]);
+    const [allFavoriteItems, setAllFavoriteItems] = useState({})
 
     // Redux states
     const state = useSelector(state => state)
@@ -30,29 +23,19 @@ const FavoriteListingsPage = () => {
         setFavoriteListingIDs(getLSItem("favoriteItems")?.[currentUserId]?.map(id => new UUID(id)))
     }, [currentUserId])
 
-    useEffect(() => {
+    // updating favorite items
+    useEffect(() => { setAllFavoriteItems(getLSItem("favoriteItems")) }, [currentUserId,favoriteListingIDs])
 
-    }, [])
-
-    const abc = async () => {
-        const data = await favoriteListingIDs?.map(id => {
-            return sdk.listings.show({ id }).then(res => {
-                return res?.data?.data;
-            });
-        })
-        return data
-    }
-
+    // const abc = async (id) => {
+    //     const data = await sdk.listings.show({ id })
+    //     return data
+    // }
+    // const def = abc("617f6c78-e2b7-45a0-a264-02ee43b4372f");
+    // def.then(data => console.log(data))
+    // const def = favoriteListingIDs?.map(id => abc(id))
+    // console.log(def);
 
 
-    const trimLongText = (text, length = 0) => {
-        if (length && (text.length > length)) {
-            return text.slice(0, (length - 1)) + "..."
-        }
-        else {
-            return text
-        }
-    }
     return (
         <Page
             title={"Favorite Listings Page"}
@@ -69,45 +52,13 @@ const FavoriteListingsPage = () => {
                 <LayoutWrapperMain className={css.contentContainer}>
                     <h2 className={css.contentTitle}>Favourites</h2>
                     <div className={css.cardContainer}>
-                        <div className={css.card}>
-                            <div className={css.cardBody}>
-                                <div className={css.cardHeaderImg}>
-                                    <img src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" />
-                                </div>
-                                <div className={css.favoriteIcon}>
-                                    <AiFillHeart />
-                                </div>
-                                <div className={css.cardInfo}>
-                                    <h2 className={css.cardPrice}>$ 3000</h2>
-                                    <p className={css.cardTitle}>{trimLongText("Lorem ipsum dolor sit amet consectetur", 30)} </p>
-                                    <p className={css.cardLocation}>Vancouver, BC, Canada</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className={css.card}>
-                            <div className={css.cardBody}>
-                                <div className={css.cardHeaderImg}>
-                                    <img src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className={css.card}>
-                            <div className={css.cardBody}>
-                                <div className={css.cardHeaderImg}>
-                                    <img src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className={css.card}>
-                            <div className={css.cardBody}>
-                                <div className={css.cardHeaderImg}>
-                                    <img src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" />
-                                </div>
-                            </div>
-                        </div>
+                        {
+                            favoriteListingIDs?.map(favoriteListingId => <SingleListing
+                                key={favoriteListingId?.uuid}
+                                setFavoriteListingIDs={setFavoriteListingIDs}
+                                favoriteListingId={favoriteListingId}
+                                allFavoriteItems={allFavoriteItems} />)
+                        }
                     </div>
                 </LayoutWrapperMain>
                 <LayoutWrapperFooter>
