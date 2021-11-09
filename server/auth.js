@@ -8,7 +8,7 @@ exports.basicAuth = (username, password) => {
   if (!username || !password) {
     throw new Error('Missing required username and password for basic authentication.');
   }
-
+ 
   return (req, res, next) => {
     const user = auth(req);
 
