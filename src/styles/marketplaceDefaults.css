@@ -1,6 +1,6 @@
-@import '../assets/sanitize.css';
-@import './customMediaQueries.css';
-@import './propertySets.css';
+@import "../assets/sanitize.css";
+@import "./customMediaQueries.css";
+@import "./propertySets.css";
 
 /* ================ Custom Properties aka CSS variables ================ */
 
@@ -44,7 +44,7 @@
   --matterColorLightTransparent: rgba(255, 255, 255, 0.65);
 
   /* ================ Font ================ */
-  --fontFamily: 'poppins', Helvetica, Arial, sans-serif;
+  --fontFamily: "poppins", Helvetica, Arial, sans-serif;
 
   --fontWeightRegular: 400;
   --fontWeightMedium: 500;
@@ -292,9 +292,9 @@ textarea {
 
 .fontsLoaded {
   & body {
-    font-family: 'poppins', Helvetica, Arial, sans-serif;
+    font-family: "poppins", Helvetica, Arial, sans-serif;
   }
   & button {
-    font-family: 'poppins', Helvetica, Arial, sans-serif;
+    font-family: "poppins", Helvetica, Arial, sans-serif;
   }
 }

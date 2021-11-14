@@ -1,12 +1,12 @@
-import React from 'react';
 import loadable from '@loadable/component';
-import getPageDataLoadingAPI from './containers/pageDataLoadingAPI';
-import { NotFoundPage } from './containers';
-
+import React from 'react';
 // routeConfiguration needs to initialize containers first
 // Otherwise, components will import form container eventually and
 // at that point css bundling / imports will happen in wrong order.
 import { NamedRedirect } from './components';
+import { NotFoundPage } from './containers';
+import getPageDataLoadingAPI from './containers/pageDataLoadingAPI';
+
 
 const pageDataLoadingAPI = getPageDataLoadingAPI();
 
@@ -31,6 +31,8 @@ const SearchPage = loadable(() => import(/* webpackChunkName: "SearchPage" */ /*
 const StripePayoutPage = loadable(() => import(/* webpackChunkName: "StripePayoutPage" */ './containers/StripePayoutPage/StripePayoutPage'));
 const TermsOfServicePage = loadable(() => import(/* webpackChunkName: "TermsOfServicePage" */ './containers/TermsOfServicePage/TermsOfServicePage'));
 const TransactionPage = loadable(() => import(/* webpackChunkName: "TransactionPage" */ './containers/TransactionPage/TransactionPage'));
+const FAQPage = loadable(() => import(/* webpackChunkName: "FAQPage" */ './containers/FAQPage/FAQPage'));
+const FavoriteListingsPage = loadable(() => import(/* webpackChunkName: "FAQPage" */ './containers/FavoriteListingsPage/FavoriteListingsPage'));
 
 // Styleguide helps you to review current components and develop new ones
 const StyleguidePage = loadable(() => import(/* webpackChunkName: "StyleguidePage" */ './containers/StyleguidePage/StyleguidePage'));
@@ -64,6 +66,11 @@ const routeConfiguration = () => {
       component: LandingPage,
     },
     {
+      path: '/faq',
+      name: 'FAQPage',
+      component: FAQPage,
+    },
+    {
       path: '/about',
       name: 'AboutPage',
       component: AboutPage,
@@ -84,6 +91,11 @@ const routeConfiguration = () => {
       name: 'ListingPage',
       component: ListingPage,
       loadData: pageDataLoadingAPI.ListingPage.loadData,
+    },
+    {
+      path: '/favorite-listing',
+      name: 'FavoriteListingsPage',
+      component: FavoriteListingsPage
     },
     {
       path: '/l/:slug/:id/checkout',

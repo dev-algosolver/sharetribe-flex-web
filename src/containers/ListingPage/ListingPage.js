@@ -1,57 +1,47 @@
+import { array, arrayOf, bool, func, oneOf, shape, string } from 'prop-types';
 import React, { Component } from 'react';
-import { array, arrayOf, bool, func, shape, string, oneOf } from 'prop-types';
-import { FormattedMessage, intlShape, injectIntl } from '../../util/reactIntl';
-import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import config from '../../config';
-import routeConfiguration from '../../routeConfiguration';
-import { findOptionsForSelectFilter } from '../../util/search';
-import { LISTING_STATE_PENDING_APPROVAL, LISTING_STATE_CLOSED, propTypes } from '../../util/types';
-import { types as sdkTypes } from '../../util/sdkLoader';
+import { compose } from 'redux';
 import {
-  LISTING_PAGE_DRAFT_VARIANT,
-  LISTING_PAGE_PENDING_APPROVAL_VARIANT,
-  LISTING_PAGE_PARAM_TYPE_DRAFT,
-  LISTING_PAGE_PARAM_TYPE_EDIT,
-  createSlug,
-} from '../../util/urlHelpers';
+  BookingPanel, Footer, LayoutSingleColumn, LayoutWrapperFooter, LayoutWrapperMain, LayoutWrapperTopbar, NamedLink,
+  NamedRedirect, Page
+} from '../../components';
+import config from '../../config';
+import { NotFoundPage, TopbarContainer } from '../../containers';
+import { getMarketplaceEntities } from '../../ducks/marketplaceData.duck';
+import { initializeCardPaymentData } from '../../ducks/stripe.duck.js';
+import { isScrollingDisabled, manageDisableScrolling } from '../../ducks/UI.duck';
+import routeConfiguration from '../../routeConfiguration';
 import { formatMoney } from '../../util/currency';
-import { createResourceLocatorString, findRouteByRouteName } from '../../util/routes';
 import {
   ensureListing,
   ensureOwnListing,
   ensureUser,
-  userDisplayNameAsString,
+  userDisplayNameAsString
 } from '../../util/data';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { richText } from '../../util/richText';
-import { getMarketplaceEntities } from '../../ducks/marketplaceData.duck';
-import { manageDisableScrolling, isScrollingDisabled } from '../../ducks/UI.duck';
-import { initializeCardPaymentData } from '../../ducks/stripe.duck.js';
+import { createResourceLocatorString, findRouteByRouteName } from '../../util/routes';
+import { types as sdkTypes } from '../../util/sdkLoader';
+import { findOptionsForSelectFilter } from '../../util/search';
+import { LISTING_STATE_CLOSED, LISTING_STATE_PENDING_APPROVAL, propTypes } from '../../util/types';
 import {
-  Page,
-  NamedLink,
-  NamedRedirect,
-  LayoutSingleColumn,
-  LayoutWrapperTopbar,
-  LayoutWrapperMain,
-  LayoutWrapperFooter,
-  Footer,
-  BookingPanel,
-} from '../../components';
-import { TopbarContainer, NotFoundPage } from '../../containers';
-
-import { sendEnquiry, fetchTransactionLineItems, setInitialValues } from './ListingPage.duck';
-import SectionImages from './SectionImages';
+  createSlug, LISTING_PAGE_DRAFT_VARIANT, LISTING_PAGE_PARAM_TYPE_DRAFT,
+  LISTING_PAGE_PARAM_TYPE_EDIT, LISTING_PAGE_PENDING_APPROVAL_VARIANT
+} from '../../util/urlHelpers';
+import { fetchTransactionLineItems, sendEnquiry, setInitialValues } from './ListingPage.duck';
+import css from './ListingPage.module.css';
 import SectionAvatar from './SectionAvatar';
-import SectionHeading from './SectionHeading';
 import SectionDescriptionMaybe from './SectionDescriptionMaybe';
 import SectionFeaturesMaybe from './SectionFeaturesMaybe';
-import SectionReviews from './SectionReviews';
+import SectionHeading from './SectionHeading';
 import SectionHostMaybe from './SectionHostMaybe';
-import SectionRulesMaybe from './SectionRulesMaybe';
+import SectionImages from './SectionImages';
 import SectionMapMaybe from './SectionMapMaybe';
-import css from './ListingPage.module.css';
+import SectionReviews from './SectionReviews';
+import SectionRulesMaybe from './SectionRulesMaybe';
+
 
 const MIN_LENGTH_FOR_LONG_WORDS_IN_TITLE = 16;
 
@@ -433,6 +423,7 @@ export class ListingPageComponent extends Component {
                     hostLink={hostLink}
                     showContactUser={showContactUser}
                     onContactUser={this.onContactUser}
+                    listingId={listingId}
                   />
                   <SectionDescriptionMaybe description={description} />
                   <SectionFeaturesMaybe options={amenityOptions} publicData={publicData} />

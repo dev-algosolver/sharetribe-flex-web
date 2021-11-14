@@ -1056,5 +1056,6 @@
   "UserCard.showFullBioLink": "more",
   "UserCard.viewProfileLink": "View profile",
   "UserDisplayName.banned": "Banned user",
-  "UserDisplayName.deleted": "Deleted user"
+  "UserDisplayName.deleted": "Deleted user",
+  "FavoriteListingsPage.errorLoadingListingTitle": "Error in loading listing"
 }

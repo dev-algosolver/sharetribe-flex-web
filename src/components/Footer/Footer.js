@@ -1,19 +1,17 @@
-import React from 'react';
-import { string } from 'prop-types';
-import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import classNames from 'classnames';
-import { twitterPageURL } from '../../util/urlHelpers';
-import config from '../../config';
+import { string } from 'prop-types';
+import React from 'react';
 import {
-  IconSocialMediaFacebook,
+  ExternalLink, IconSocialMediaFacebook,
   IconSocialMediaInstagram,
   IconSocialMediaTwitter,
-  Logo,
-  ExternalLink,
-  NamedLink,
+  Logo, NamedLink
 } from '../../components';
-
+import config from '../../config';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
+import { twitterPageURL } from '../../util/urlHelpers';
 import css from './Footer.module.css';
+
 
 const renderSocialMediaLinks = intl => {
   const { siteFacebookPage, siteInstagramPage, siteTwitterHandle } = config;
@@ -92,7 +90,7 @@ const Footer = props => {
                   </NamedLink>
                 </li>
                 <li className={css.listItem}>
-                  <NamedLink name="LandingPage" className={css.link}>
+                  <NamedLink name="FAQPage" className={css.link}>
                     <FormattedMessage id="Footer.toFAQPage" />
                   </NamedLink>
                 </li>

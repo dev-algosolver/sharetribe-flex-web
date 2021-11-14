@@ -1,4 +1,4 @@
-@import '../../styles/propertySets.css';
+@import "../../styles/propertySets.css";
 
 /* Desktop */
 .root {
@@ -321,4 +321,20 @@
       background-color: var(--matterColorDark);
     }
   }
+}
+
+.favoriteLink {
+  @apply --TopbarDesktop_linkHover;
+  flex-shrink: 0;
+  height: 100%;
+  padding: 0 12px 0 12px;
+  display: flex;
+  align-items: center;
+}
+.favoriteLink svg {
+  font-size: 30px;
+  fill: #ccc0c0;
+}
+.favoriteLink:hover svg {
+  fill: var(--marketplaceColor);
 }

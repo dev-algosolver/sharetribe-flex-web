@@ -1,0 +1,138 @@
+@import "../../styles/customMediaQueries.css";
+@import "../../styles/propertySets.css";
+.contentContainer {
+    padding: 15px;
+    @media (--viewportMedium) {
+        max-width: 1024px;
+        margin: 0 auto;
+        padding: 15px 24px;
+        display: flex;
+        position: relative;
+    }
+
+    @media (--viewportLarge) {
+        max-width: 1300px;
+        padding: 15px 36px;
+        margin: 0 auto 117px;
+    }
+
+    @media (--viewportXLarge) {
+        padding: 0;
+    }
+}
+
+.contentTitle {
+    font-size: 2em;
+}
+
+.cardContainer {
+    display: flex;
+    flex-wrap: wrap;
+
+    /* @media (--viewportMedium) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (--viewportLarge) {
+        grid-template-columns: repeat(3, 1fr);
+    } */
+}
+.card {
+    margin: 15px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    font-family: Open Sans, sans-serif;
+    height: 344px;
+    overflow: hidden;
+    position: relative;
+    width: 330px;
+}
+.cardBody {
+    overflow: hidden;
+    position: relative;
+}
+.cardHeaderImg {
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+}
+.cardHeaderImg img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.favoriteIcon {
+    position: absolute;
+    top: 195px;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    background: #fff;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+.favoriteIcon svg {
+    fill: #ccc0c0;
+    font-size: 40px;
+}
+.active svg {
+    fill: #eb2d2d;
+}
+.cardInfo {
+    padding: 0 10px;
+}
+.cardInfo a {
+    color: #222;
+    text-decoration: none;
+}
+.cardPrice {
+    margin: 5px 0;
+}
+.cardTitle {
+    margin: 0;
+}
+.cardLocation {
+    font-size: 12px;
+    margin: 0;
+}
+.loaderContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+.cardLoading {
+    width: 45px;
+    height: 45px;
+    display: inline-block;
+    padding: 0px;
+    border-radius: 100%;
+    border: 5px solid;
+    border-top-color: var(--marketplaceColor);
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+    border-left-color: var(--marketplaceColor);
+    border-right-color: rgba(255, 255, 255, 0.3);
+    -webkit-animation: cardLoading 1s ease-in-out infinite;
+    animation: cardLoading 1s ease-in-out infinite;
+}
+@keyframes cardLoading {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+@-webkit-keyframes cardLoading {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
