@@ -374,13 +374,17 @@
   color: var(--matterColor);
 }
 .addToFavorite {
-  width: 40px;
+  width: 120px;
   text-align: center;
 }
 .addToFavorite svg {
   font-size: 30px;
   fill: #ccc0c0;
   cursor: pointer;
+}
+.addToFavorite h4 {
+  margin: 0;
+  font-size: 12px;
 }
 .active svg {
   fill: #eb2d2d;

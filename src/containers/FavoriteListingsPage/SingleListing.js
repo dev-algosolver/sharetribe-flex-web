@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { AiFillHeart } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setLSItem } from '../../services/localstorageService';
+import Loader from '../../components/Loader/Loader';
 // import { sharetribeSdk } from 'sharetribe-flex-sdk';
 import { types as sdkTypes } from '../../util/sdkLoader';
 import css from './FavoriteListingPage.module.css';
@@ -17,7 +17,7 @@ const sdk = sharetribeSdk.createInstance({
 const sdkUtil = sharetribeSdk.util;
 
 
-const SingleListing = ({ favoriteListingId, setFavoriteListingIDs, allFavoriteItems }) => {
+const SingleListing = ({ favoriteListingId, setFavoriteListingIDs, favoriteListingIDs }) => {
     const [loading, setLoading] = useState(true)
     const [listingData, setListingData] = useState({})
 
@@ -50,16 +50,19 @@ const SingleListing = ({ favoriteListingId, setFavoriteListingIDs, allFavoriteIt
 
     // For delete from favorite
     const deleteFromFavorite = () => {
-        if (allFavoriteItems?.[currentUserId]?.length) {
-            const favoriteItems = allFavoriteItems?.[currentUserId]?.filter(item => item !== favoriteListingId);
+        setLoading(true)
+        if (favoriteListingIDs?.length) {
+            const favoriteItems = favoriteListingIDs?.filter(item => item !== favoriteListingId);
 
-            // set in state
-            setFavoriteListingIDs(favoriteItems)
-            // set in local storage
-            setLSItem("favoriteItems", {
-                ...allFavoriteItems,
-                [currentUserId]: favoriteItems
+            sdk.currentUser.updateProfile({
+                privateData: {
+                    wishlist: favoriteItems
+                }
+            }).then(res => {
+                setLoading(false)
+                setFavoriteListingIDs(favoriteItems)
             })
+                .catch(() => setLoading(false))
         }
     }
     return (
@@ -68,9 +71,7 @@ const SingleListing = ({ favoriteListingId, setFavoriteListingIDs, allFavoriteIt
             <div className={css.card}>
                 {
                     loading
-                        ? <div className={css.loaderContainer}>
-                            <p className={css.cardLoading}></p>
-                        </div>
+                        ? <Loader />
                         : <div className={css.cardBody}>
                             <div className={css.cardHeaderImg}>
                                 <Link to={`/l/${listingData?.data?.attributes?.title}/${listingData?.data?.id?.uuid}`}>
