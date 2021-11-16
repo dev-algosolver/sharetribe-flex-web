@@ -1,32 +1,24 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
 import classNames from 'classnames';
-import { REVIEW_TYPE_OF_PROVIDER, REVIEW_TYPE_OF_CUSTOMER, propTypes } from '../../util/types';
-import { ensureCurrentUser, ensureUser } from '../../util/data';
-import { withViewport } from '../../util/contextHelpers';
-import { isScrollingDisabled } from '../../ducks/UI.duck';
-import { getMarketplaceEntities } from '../../ducks/marketplaceData.duck';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import {
-  Page,
-  LayoutSideNavigation,
-  LayoutWrapperMain,
+  AvatarLarge, ButtonTabNavHorizontal, Footer, LayoutSideNavigation, LayoutWrapperFooter, LayoutWrapperMain,
   LayoutWrapperSideNav,
-  LayoutWrapperTopbar,
-  LayoutWrapperFooter,
-  Footer,
-  AvatarLarge,
-  NamedLink,
-  ListingCard,
-  Reviews,
-  ButtonTabNavHorizontal,
+  LayoutWrapperTopbar, ListingCard, NamedLink, Page, Reviews
 } from '../../components';
-import { TopbarContainer, NotFoundPage } from '../../containers';
 import config from '../../config';
-
+import { NotFoundPage, TopbarContainer } from '../../containers';
+import { getMarketplaceEntities } from '../../ducks/marketplaceData.duck';
+import { isScrollingDisabled } from '../../ducks/UI.duck';
+import { withViewport } from '../../util/contextHelpers';
+import { ensureCurrentUser, ensureUser } from '../../util/data';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
+import { propTypes, REVIEW_TYPE_OF_CUSTOMER, REVIEW_TYPE_OF_PROVIDER } from '../../util/types';
+import FavoriteListingPageContent from '../FavoriteListingsPage/FavoriteListingPageContent';
 import css from './ProfilePage.module.css';
+
 
 const MAX_MOBILE_SCREEN_WIDTH = 768;
 
@@ -202,11 +194,13 @@ export class ProfilePageComponent extends Component {
           </div>
         ) : null}
         {isMobileLayout ? mobileReviews : desktopReviews}
+        {(currentUser?.id?.uuid === user?.id?.uuid) &&
+          <FavoriteListingPageContent/>}
       </div>
     );
 
     let content;
-
+    
     if (userShowError && userShowError.status === 404) {
       return <NotFoundPage />;
     } else if (userShowError || queryListingsError) {

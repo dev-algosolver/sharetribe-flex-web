@@ -5,6 +5,10 @@
 */
 
 const fs = require('fs');
+const { updateAvgRatings } = require('./review');
+
+  // ===================== [updating average ratings] =============================
+  updateAvgRatings()
 
 const NODE_ENV = process.env.NODE_ENV;
 
