@@ -65,6 +65,7 @@ const SingleListing = ({ favoriteListingId, setFavoriteListingIDs, favoriteListi
                 .catch(() => setLoading(false))
         }
     }
+
     return (
         <>
 

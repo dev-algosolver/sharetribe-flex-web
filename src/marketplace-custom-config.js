@@ -61,6 +61,22 @@ export const filters = [
     },
   },
   {
+    id: 'rating',
+    label: 'Rating',
+    type: 'RatingFilter',
+    group: 'primary',
+    // Note: PriceFilter is fixed filter,
+    // you can't change "queryParamNames: ['price'],"
+    queryParamNames: ['meta_rating'],
+    // Price filter configuration
+    // Note: unlike most prices this is not handled in subunits
+    config: {
+      min: 0,
+      max: 5,
+      step: 0.1,
+    },
+  },
+  {
     id: 'keyword',
     label: 'Keyword',
     type: 'KeywordFilter',
