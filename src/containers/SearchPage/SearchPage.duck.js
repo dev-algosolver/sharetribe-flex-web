@@ -1,10 +1,10 @@
 import unionWith from 'lodash/unionWith';
-import { storableError } from '../../util/errors';
+import config from '../../config';
 import { addMarketplaceEntities } from '../../ducks/marketplaceData.duck';
 import { convertUnitToSubUnit, unitDivisor } from '../../util/currency';
 import { formatDateStringToUTC, getExclusiveEndDate } from '../../util/dates';
+import { storableError } from '../../util/errors';
 import { parse } from '../../util/urlHelpers';
-import config from '../../config';
 
 // Pagination page size might need to be dynamic on responsive page layouts
 // Current design has max 3 columns 12 is divisible by 2 and 3
@@ -165,6 +165,7 @@ export const searchListings = searchParams => (dispatch, getState, sdk) => {
     ...priceMaybe,
     ...datesMaybe,
     per_page: perPage,
+    sort: 'meta_rating',
   };
 
   return sdk.listings

@@ -42,6 +42,7 @@ const log = require('./log');
 const { sitemapStructure } = require('./sitemap');
 const csp = require('./csp');
 const sdkUtils = require('./api-util/sdk');
+const { updateAvgRatings } = require('./review');
 
 const buildPath = path.resolve(__dirname, '..', 'build');
 const env = process.env.REACT_APP_ENV;
@@ -113,6 +114,7 @@ if (USING_SSL) {
   app.use(enforceSsl());
 }
 
+
 // Set the TRUST_PROXY when running the app behind a reverse proxy.
 //
 // For example, when running the app in Heroku, set TRUST_PROXY to `true`.
@@ -173,7 +175,6 @@ const noCacheHeaders = {
 // for setting up new TCP connections.
 const httpAgent = new http.Agent({ keepAlive: true });
 const httpsAgent = new https.Agent({ keepAlive: true });
-
 app.get('*', (req, res) => {
   if (req.url.startsWith('/static/')) {
     // The express.static middleware only handles static resources
