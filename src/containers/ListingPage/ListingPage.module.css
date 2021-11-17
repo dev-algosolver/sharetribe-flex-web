@@ -376,6 +376,12 @@
 .addToFavorite {
   width: 120px;
   text-align: center;
+  display: block;
+  color: #333;
+  text-decoration: none;
+}
+.addToFavorite:hover {
+  text-decoration: none;
 }
 .addToFavorite svg {
   font-size: 30px;

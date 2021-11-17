@@ -165,7 +165,7 @@ export const searchListings = searchParams => (dispatch, getState, sdk) => {
     ...priceMaybe,
     ...datesMaybe,
     per_page: perPage,
-    meta_rating: "5",
+    sort: 'meta_rating',
   };
 
   return sdk.listings
