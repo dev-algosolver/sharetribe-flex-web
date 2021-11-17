@@ -49,8 +49,7 @@ const updateAvgRatings = async ()=> {
             return review.listingId === listingId.uuid ? total + review.reviewData.rating : total + 0;
         }, 0);
         const reviewCount = reviews.filter((rev) => rev.listingId === listingId.uuid).length;
-        const avgRating = parseFloat((ratingSum / reviewCount).toFixed(2));
-       
+        const avgRating = parseFloat((ratingSum / reviewCount).toFixed(2)) || 0;
         // Sending response to api
         const response = hasReview && integrationSdk.listings
             .update({

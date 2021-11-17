@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { AiFillHeart } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { InlineTextButton } from '../../components';
 import Loader from '../../components/Loader/Loader';
 import config from '../../config';
@@ -133,20 +134,27 @@ const SectionHeading = props => {
         </div>
         <div>
           {
-            state?.Auth?.isAuthenticated &&
-            <div
-              className={`${css.addToFavorite} ${isAddedToFavorite && css.active}`}
-              onClick={isAddedToFavorite ? deleteFromFavorite : addToFavorite}
-              title="Add to Favorite">
-              {
-                loading
-                  ? <Loader />
-                  : <>
-                    <AiFillHeart />
-                    <h4>Add to wishlist</h4>
-                  </>
-              }
-            </div>
+            state?.Auth?.isAuthenticated
+              ? <div
+                className={`${css.addToFavorite} ${isAddedToFavorite && css.active}`}
+                onClick={isAddedToFavorite ? deleteFromFavorite : addToFavorite}
+                title="Add to Favorite">
+                {
+                  loading
+                    ? <Loader />
+                    : <>
+                      <AiFillHeart />
+                      <h4>{isAddedToFavorite ? "Added to wishlist" : "Add to wishlist"}</h4>
+                    </>
+                }
+              </div>
+              :
+              <Link to="/login"
+                className={`${css.addToFavorite}`}
+                title="Add to Favorite">
+                <AiFillHeart />
+                <h4>{isAddedToFavorite ? "Added to wishlist" : "Add to wishlist"}</h4>
+              </Link>
           }
 
         </div>
